@@ -11,7 +11,9 @@ import Alamofire
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var detectLabl: UILabel!
     var motionHandler = MotionHandler(i: 0.02)
+    let serverUrl = "http://10.8.120.126:8000/AddDataPoint"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,12 @@ class ViewController: UIViewController {
     @IBAction func Jab(_ sender: UIButton) {
         print("Training Jab. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+            let params: [String:Any] = [
+                "feature" : data,
+                "label" : "jab",
+                "dsid" : 0
+            ]
+            Alamofire.request(serverUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON {
                 response in
                 debugPrint(response)
             }
@@ -39,7 +46,12 @@ class ViewController: UIViewController {
     @IBAction func Uppercut(_ sender: UIButton) {
         print("Training Uppercut. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+            let params: [String:Any] = [
+                "feature" : data,
+                "label" : "uppercut",
+                "dsid" : 0
+            ]
+            Alamofire.request(serverUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON {
                 response in
                 debugPrint(response)
             }
@@ -51,7 +63,12 @@ class ViewController: UIViewController {
     @IBAction func Hook(_ sender: UIButton) {
         print("Training Hook. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+            let params: [String:Any] = [
+                "feature" : data,
+                "label" : "hook",
+                "dsid" : 0
+            ]
+            Alamofire.request(serverUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON {
                 response in
                 debugPrint(response)
             }
@@ -63,7 +80,12 @@ class ViewController: UIViewController {
     @IBAction func Block(_ sender: UIButton) {
         print("Training Block. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+            let params: [String:Any] = [
+                "feature" : data,
+                "label" : "block",
+                "dsid" : 0
+            ]
+            Alamofire.request(serverUrl, method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON {
                 response in
                 debugPrint(response)
             }
@@ -71,6 +93,24 @@ class ViewController: UIViewController {
             print("Timeout!")
         }
     }
+    
+    @IBAction func Detect(_ sender: UIButton) {
+        print("predicting move")
+        if let data = motionHandler.getNextMotion(timeout: 2.0) {
+            let params: [String:Any] = [
+                "feature" : data,
+                "dsid" : 0
+            ]
+            Alamofire.request("http://10.8.120.126:8000/PredictOne", method: .post, parameters: params, encoding: JSONEncoding.default, headers: nil).responseJSON {
+                response in
+                debugPrint(response)
+            }
+        } else {
+            print("Timeout!")
+        }
+    }
+    
+    
 
 }
 

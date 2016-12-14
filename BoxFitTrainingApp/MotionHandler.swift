@@ -79,60 +79,69 @@ class MotionHandler: NSObject {
         motionKit.stopGyroUpdates()
     }
 
-    public func getNextMotion(timeout: Double) -> [String:[String:String]]? {
+    public func getNextMotion(timeout: Double) -> [Double]? {
         let time = Date()
 
         self.listenForEvent = true
         var previousAccel = [(Double, Double, Double)](repeating: (Double(), Double(), Double()), count: 4)
         var previousGyro = [(Double, Double, Double)](repeating: (Double(), Double(), Double()), count: 4)
-        let threshold = 1.0
+        let threshold = 3.0
 
-        while(Date().timeIntervalSince(time) < 1.0) {
+        while(Date().timeIntervalSince(time) < 2.0) {
             for i in 0...3 {
                 previousAccel[i] = accelBuffer.array[(accelBuffer.writeIndex - i) % accelBuffer.array.count]!
                 previousGyro[i] = gyroBuffer.array[(gyroBuffer.writeIndex - i) % gyroBuffer.array.count]!
             }
-            let mag3 = fabs(previousAccel[3].0)+fabs(previousAccel[3].1)+fabs(previousAccel[3].2)
-            let mag2 = fabs(previousAccel[2].0)+fabs(previousAccel[2].1)+fabs(previousAccel[2].2)
-            let mag1 = fabs(previousAccel[1].0)+fabs(previousAccel[1].1)+fabs(previousAccel[1].2)
-            let mag0 = fabs(previousAccel[0].0)+fabs(previousAccel[0].1)+fabs(previousAccel[0].2)
+            let accelMag3 = fabs(previousAccel[3].0)+fabs(previousAccel[3].1)+fabs(previousAccel[3].2)
+            let accelMag2 = fabs(previousAccel[2].0)+fabs(previousAccel[2].1)+fabs(previousAccel[2].2)
+            let accelMag1 = fabs(previousAccel[1].0)+fabs(previousAccel[1].1)+fabs(previousAccel[1].2)
+            let accelMag0 = fabs(previousAccel[0].0)+fabs(previousAccel[0].1)+fabs(previousAccel[0].2)
+            
+            let gyroMag3 = fabs(previousGyro[3].0)+fabs(previousGyro[3].1)+fabs(previousGyro[3].2)
+            let gyroMag2 = fabs(previousGyro[2].0)+fabs(previousGyro[2].1)+fabs(previousGyro[2].2)
+            let gyroMag1 = fabs(previousGyro[1].0)+fabs(previousGyro[1].1)+fabs(previousGyro[1].2)
+            let gyroMag0 = fabs(previousGyro[0].0)+fabs(previousGyro[0].1)+fabs(previousGyro[0].2)
 
-            let diff1 = fabs(mag3 - mag2)
-            let diff2 = fabs(mag1 - mag0)
-            let diff3 = diff2 - diff1
-            if diff3 > threshold {
+            let accelDiff1 = fabs(accelMag3 - accelMag2)
+            let accelDiff2 = fabs(accelMag1 - accelMag0)
+            let accelDiff3 = accelDiff2 - accelDiff1
+            
+            let gyroDiff1 = fabs(gyroMag3 - gyroMag2)
+            let gyroDiff2 = fabs(gyroMag1 - gyroMag0)
+            let gyroDiff3 = gyroDiff2 - gyroDiff1
+            
+            if (accelDiff3 > threshold) || (gyroDiff3 > threshold) {
                 print("broke threshold")
                 sleep(1)
                 return getData()
             }
         }
         return nil
-
     }
 
-    public func getData() -> [String:[String:String]] {
-        var data = [[Double]](repeating:[Double](repeating:Double(), count:6), count:50)
+    public func getData() -> [Double] {
+        var data = [Double](repeating:Double(), count:(50*6))
         var mean_array = [Double](repeating:Double(), count:6)
 
         // populate data from ring buffers
         for i in 0...49 {
             let accelIndex = (self.accelBuffer.writeIndex - i) % 50
-            data[i][0] = (self.accelBuffer.array[accelIndex]?.0)!
-            data[i][1] = (self.accelBuffer.array[accelIndex]?.1)!
-            data[i][2] = (self.accelBuffer.array[accelIndex]?.2)!
+            data[(i*6)+0] = (self.accelBuffer.array[accelIndex]?.0)!
+            data[(i*6)+1] = (self.accelBuffer.array[accelIndex]?.1)!
+            data[(i*6)+2] = (self.accelBuffer.array[accelIndex]?.2)!
             let gyroIndex = (self.gyroBuffer.writeIndex - i) % 50
-            data[i][3] = (self.gyroBuffer.array[gyroIndex]?.0)!
-            data[i][4] = (self.gyroBuffer.array[gyroIndex]?.1)!
-            data[i][5] = (self.gyroBuffer.array[gyroIndex]?.2)!
+            data[(i*6)+3] = (self.gyroBuffer.array[gyroIndex]?.0)!
+            data[(i*6)+4] = (self.gyroBuffer.array[gyroIndex]?.1)!
+            data[(i*6)+5] = (self.gyroBuffer.array[gyroIndex]?.2)!
             for j in 0...5 {
-                mean_array[j] += data[i][j]
+                mean_array[j] += data[(i*6)+j]
             }
         }
 
         // process data by averaging with a sliding window
         for i in 1...48 {
             for j in 0...5 {
-                data[i][j] = (data[i-1][j] + data[i][j] + data[i+1][j]) / 3.0
+                data[(i*6)+j] = data[((i*6)+j)-1] + data[(i*6)+j] + data[((i*6)+j)+1] / 3.0
             }
         }
 
@@ -145,27 +154,17 @@ class MotionHandler: NSObject {
         var standard_dev_mean_array = [Double](repeating:Double(), count:6)
         for i in 0...49 {
             for j in 0...5 {
-                standard_dev_mean_array[j] += mean_array[j] - data[i][j]
+                standard_dev_mean_array[j] += mean_array[j] - data[(i*6)+j]
             }
         }
         for i in 0...5 {
             standard_dev_mean_array[i] /= 50
         }
 
-        data.append(mean_array)
-        data.append(standard_dev_mean_array)
-
-        var string_dict = [String:[String:String]]()
-        // convert to string dictionary
-        for i in 0...51 {
-            var nested_dict = [String:String]()
-            for j in 0...5 {
-                nested_dict["\(i)-\(j)"] = "\(data[i][j])"
-            }
-            string_dict["\(i)"] = nested_dict
-        }
-
-        return string_dict
+        data += mean_array
+        data += standard_dev_mean_array
+        
+        return data
     }
 }
 
