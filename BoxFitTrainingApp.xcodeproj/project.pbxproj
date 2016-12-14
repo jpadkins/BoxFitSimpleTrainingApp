@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A656B071E01311C004AD435 /* MotionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A656B061E01311C004AD435 /* MotionHandler.swift */; };
 		0AD5FDBA1E012B20008EBE61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5FDB91E012B20008EBE61 /* AppDelegate.swift */; };
 		0AD5FDBC1E012B20008EBE61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5FDBB1E012B20008EBE61 /* ViewController.swift */; };
 		0AD5FDBF1E012B20008EBE61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD5FDBD1E012B20008EBE61 /* Main.storyboard */; };
@@ -14,6 +15,7 @@
 		0AD5FDC41E012B20008EBE61 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AD5FDC21E012B20008EBE61 /* LaunchScreen.storyboard */; };
 		0AD5FDCF1E012B20008EBE61 /* BoxFitTrainingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5FDCE1E012B20008EBE61 /* BoxFitTrainingAppTests.swift */; };
 		0AD5FDDA1E012B20008EBE61 /* BoxFitTrainingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD5FDD91E012B20008EBE61 /* BoxFitTrainingAppUITests.swift */; };
+		D9225AC2A32E284B01CF1ECF /* Pods_BoxFitTrainingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5A1DF273B35120103846C7 /* Pods_BoxFitTrainingApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A656B061E01311C004AD435 /* MotionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionHandler.swift; sourceTree = "<group>"; };
 		0AD5FDB61E012B20008EBE61 /* BoxFitTrainingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoxFitTrainingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD5FDB91E012B20008EBE61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AD5FDBB1E012B20008EBE61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +50,9 @@
 		0AD5FDD51E012B20008EBE61 /* BoxFitTrainingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoxFitTrainingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AD5FDD91E012B20008EBE61 /* BoxFitTrainingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxFitTrainingAppUITests.swift; sourceTree = "<group>"; };
 		0AD5FDDB1E012B20008EBE61 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D5A1DF273B35120103846C7 /* Pods_BoxFitTrainingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoxFitTrainingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45ACA4453B231B93659350C2 /* Pods-BoxFitTrainingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoxFitTrainingApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoxFitTrainingApp/Pods-BoxFitTrainingApp.debug.xcconfig"; sourceTree = "<group>"; };
+		DB47627F77C12B98ACD31C17 /* Pods-BoxFitTrainingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoxFitTrainingApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-BoxFitTrainingApp/Pods-BoxFitTrainingApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9225AC2A32E284B01CF1ECF /* Pods_BoxFitTrainingApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +88,8 @@
 				0AD5FDCD1E012B20008EBE61 /* BoxFitTrainingAppTests */,
 				0AD5FDD81E012B20008EBE61 /* BoxFitTrainingAppUITests */,
 				0AD5FDB71E012B20008EBE61 /* Products */,
+				5CB7161C4141BFCE58314622 /* Pods */,
+				68E07491FA29C76CF4D1A82A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,6 +106,7 @@
 		0AD5FDB81E012B20008EBE61 /* BoxFitTrainingApp */ = {
 			isa = PBXGroup;
 			children = (
+				0A656B061E01311C004AD435 /* MotionHandler.swift */,
 				0AD5FDB91E012B20008EBE61 /* AppDelegate.swift */,
 				0AD5FDBB1E012B20008EBE61 /* ViewController.swift */,
 				0AD5FDBD1E012B20008EBE61 /* Main.storyboard */,
@@ -125,6 +135,23 @@
 			path = BoxFitTrainingAppUITests;
 			sourceTree = "<group>";
 		};
+		5CB7161C4141BFCE58314622 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				45ACA4453B231B93659350C2 /* Pods-BoxFitTrainingApp.debug.xcconfig */,
+				DB47627F77C12B98ACD31C17 /* Pods-BoxFitTrainingApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		68E07491FA29C76CF4D1A82A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2D5A1DF273B35120103846C7 /* Pods_BoxFitTrainingApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +159,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0AD5FDDE1E012B20008EBE61 /* Build configuration list for PBXNativeTarget "BoxFitTrainingApp" */;
 			buildPhases = (
+				1A81001CC20851CC7A2A8A7E /* [CP] Check Pods Manifest.lock */,
 				0AD5FDB21E012B1F008EBE61 /* Sources */,
 				0AD5FDB31E012B1F008EBE61 /* Frameworks */,
 				0AD5FDB41E012B1F008EBE61 /* Resources */,
+				5C0F84FCE6F4B71EF5800909 /* [CP] Embed Pods Frameworks */,
+				9FEA5CDCE22C7663CA168FAB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -257,11 +287,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A81001CC20851CC7A2A8A7E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		5C0F84FCE6F4B71EF5800909 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BoxFitTrainingApp/Pods-BoxFitTrainingApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9FEA5CDCE22C7663CA168FAB /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BoxFitTrainingApp/Pods-BoxFitTrainingApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0AD5FDB21E012B1F008EBE61 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A656B071E01311C004AD435 /* MotionHandler.swift in Sources */,
 				0AD5FDBC1E012B20008EBE61 /* ViewController.swift in Sources */,
 				0AD5FDBA1E012B20008EBE61 /* AppDelegate.swift in Sources */,
 			);
@@ -413,6 +492,7 @@
 		};
 		0AD5FDDF1E012B20008EBE61 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45ACA4453B231B93659350C2 /* Pods-BoxFitTrainingApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F69WJ27LN4;
@@ -426,6 +506,7 @@
 		};
 		0AD5FDE01E012B20008EBE61 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB47627F77C12B98ACD31C17 /* Pods-BoxFitTrainingApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = F69WJ27LN4;
@@ -514,6 +595,7 @@
 				0AD5FDE01E012B20008EBE61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0AD5FDE11E012B20008EBE61 /* Build configuration list for PBXNativeTarget "BoxFitTrainingAppTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +604,7 @@
 				0AD5FDE31E012B20008EBE61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0AD5FDE41E012B20008EBE61 /* Build configuration list for PBXNativeTarget "BoxFitTrainingAppUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +613,7 @@
 				0AD5FDE61E012B20008EBE61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
