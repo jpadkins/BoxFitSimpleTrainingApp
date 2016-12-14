@@ -27,16 +27,9 @@ class ViewController: UIViewController {
     @IBAction func Jab(_ sender: UIButton) {
         print("Training Jab. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("url", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJson {
-                (response:DataResponse<Any>) in
-                switch (response.result) {
-                case .success(_):
-                    print("Networking Success!")
-                    break
-                case .failure(_):
-                    print("Networking Error!")
-                    break
-                }
+            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+                response in
+                debugPrint(response)
             }
         } else {
             print("Timeout!")
@@ -46,17 +39,11 @@ class ViewController: UIViewController {
     @IBAction func Uppercut(_ sender: UIButton) {
         print("Training Uppercut. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("url", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJson {
-                (response:DataResponse<Any>) in
-                switch (response.result) {
-                case .success(_):
-                    print("Networking Success!")
-                    break
-                case .failure(_):
-                    print("Networking Error!")
-                    break
-                }
-            }        } else {
+            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+                response in
+                debugPrint(response)
+            }
+        } else {
             print("Timeout!")
         }
     }
@@ -64,17 +51,11 @@ class ViewController: UIViewController {
     @IBAction func Hook(_ sender: UIButton) {
         print("Training Hook. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("url", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJson {
-                (response:DataResponse<Any>) in
-                switch (response.result) {
-                case .success(_):
-                    print("Networking Success!")
-                    break
-                case .failure(_):
-                    print("Networking Error!")
-                    break
-                }
-            }        } else {
+            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+                response in
+                debugPrint(response)
+            }
+        } else {
             print("Timeout!")
         }
     }
@@ -82,17 +63,11 @@ class ViewController: UIViewController {
     @IBAction func Block(_ sender: UIButton) {
         print("Training Block. . .")
         if let data = motionHandler.getNextMotion(timeout: 2.0) {
-            Alamofire.request("url", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJson {
-                (response:DataResponse<Any>) in
-                switch (response.result) {
-                case .success(_):
-                    print("Networking Success!")
-                    break
-                case .failure(_):
-                    print("Networking Error!")
-                    break
-                }
-            }        } else {
+            Alamofire.request("http://website.com", method: .post, parameters: data, encoding: JSONEncoding.default, headers: nil).responseJSON {
+                response in
+                debugPrint(response)
+            }
+        } else {
             print("Timeout!")
         }
     }

@@ -73,21 +73,20 @@ class MotionHandler: NSObject {
             _ = self.gyroBuffer.write((x, y, z))
         }
     }
-    
+
     public func stop() {
         motionKit.stopAccelerometerUpdates()
         motionKit.stopGyroUpdates()
     }
-    
-    public func getNextMotion(timeout: Double) -> [[Double]]? {
+
+    public func getNextMotion(timeout: Double) -> [String:[String:String]]? {
         let time = Date()
-        
+
         self.listenForEvent = true
         var previousAccel = [(Double, Double, Double)](repeating: (Double(), Double(), Double()), count: 4)
         var previousGyro = [(Double, Double, Double)](repeating: (Double(), Double(), Double()), count: 4)
         let threshold = 1.0
-        
-        
+
         while(Date().timeIntervalSince(time) < 1.0) {
             for i in 0...3 {
                 previousAccel[i] = accelBuffer.array[(accelBuffer.writeIndex - i) % accelBuffer.array.count]!
@@ -97,7 +96,7 @@ class MotionHandler: NSObject {
             let mag2 = fabs(previousAccel[2].0)+fabs(previousAccel[2].1)+fabs(previousAccel[2].2)
             let mag1 = fabs(previousAccel[1].0)+fabs(previousAccel[1].1)+fabs(previousAccel[1].2)
             let mag0 = fabs(previousAccel[0].0)+fabs(previousAccel[0].1)+fabs(previousAccel[0].2)
-            
+
             let diff1 = fabs(mag3 - mag2)
             let diff2 = fabs(mag1 - mag0)
             let diff3 = diff2 - diff1
@@ -110,9 +109,11 @@ class MotionHandler: NSObject {
         return nil
 
     }
-    
-    public func getData() -> [[Double]] {
+
+    public func getData() -> [String:[String:String]] {
         var data = [[Double]](repeating:[Double](repeating:Double(), count:6), count:50)
+        var mean_array = [Double](repeating:Double(), count:6)
+
         // populate data from ring buffers
         for i in 0...49 {
             let accelIndex = (self.accelBuffer.writeIndex - i) % 50
@@ -123,14 +124,48 @@ class MotionHandler: NSObject {
             data[i][3] = (self.gyroBuffer.array[gyroIndex]?.0)!
             data[i][4] = (self.gyroBuffer.array[gyroIndex]?.1)!
             data[i][5] = (self.gyroBuffer.array[gyroIndex]?.2)!
+            for j in 0...5 {
+                mean_array[j] += data[i][j]
+            }
         }
+
         // process data by averaging with a sliding window
         for i in 1...48 {
             for j in 0...5 {
                 data[i][j] = (data[i-1][j] + data[i][j] + data[i+1][j]) / 3.0
             }
         }
-        return data
+
+        // create mean array
+        for i in 0...5 {
+            mean_array[i] /= 50
+        }
+
+        // create standard dev mean array
+        var standard_dev_mean_array = [Double](repeating:Double(), count:6)
+        for i in 0...49 {
+            for j in 0...5 {
+                standard_dev_mean_array[j] += mean_array[j] - data[i][j]
+            }
+        }
+        for i in 0...5 {
+            standard_dev_mean_array[i] /= 50
+        }
+
+        data.append(mean_array)
+        data.append(standard_dev_mean_array)
+
+        var string_dict = [String:[String:String]]()
+        // convert to string dictionary
+        for i in 0...51 {
+            var nested_dict = [String:String]()
+            for j in 0...5 {
+                nested_dict["\(i)-\(j)"] = "\(data[i][j])"
+            }
+            string_dict["\(i)"] = nested_dict
+        }
+
+        return string_dict
     }
 }
 
